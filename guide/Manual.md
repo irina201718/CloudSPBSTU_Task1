@@ -141,10 +141,10 @@ echo 1 | sudo tee /proc/sys/net/ipv4/ip_forward 1
 Таким образом виртуальные машины А и С будут видеть друг друга в сети
 2. Чтобы разрешить переброс только конкретных пакетов по конкретному порту, следуюет настроить маршрут [следующим образом](https://www.digitalocean.com/community/tutorials/how-to-forward-ports-through-a-linux-gateway-with-iptables):
 ```shell
-iptables -A FORWARD -i eth0 -o eth1 -p tcp --syn --dport 5000 -m conntrack --ctstate NEW -j ACCEPT
+iptables -A FORWARD -i enp0s8 -o enp0s9 -p tcp --syn --dport 5000 -m conntrack --ctstate NEW -j ACCEPT
 
-iptables -A FORWARD -i eth0 -o eth1 -m conntrack --ctstate ESTABLISHED,RELATED -j ACCEPT
-iptables -A FORWARD -i eth1 -o eth0 -m conntrack --ctstate ESTABLISHED,RELATED -j ACCEPT
+iptables -A FORWARD -i enp0s8 -o enp0s9 -m conntrack --ctstate ESTABLISHED,RELATED -j ACCEPT
+iptables -A FORWARD -i enp0s9 -o enp0s8 -m conntrack --ctstate ESTABLISHED,RELATED -j ACCEPT
 
 iptables -P FORWARD DROP
 
