@@ -1,0 +1,10 @@
+# This is the network config written by 'subiquity'
+network:
+ ethernets:
+  enp0s3:
+   dhcp4: true
+  enpOsB: # этот интерфейс настраиваем  на передачу запросов
+   dhcp4: no
+   addresses: [192.168.10.10/24]
+   gatewag4: 192.168.10.1
+ version: 2
